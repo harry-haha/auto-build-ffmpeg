@@ -11,7 +11,7 @@ jobs:
       - name: Setup Msys2
         uses: msys2/setup-msys2@v2
         with:
-          msystem: msys2
+          msystem: msys
           update: true
           install: make pkgconf diffutils mingw-w64-x86_64-nasm mingw-w64-x86_64-gcc mingw-w64-x86_64-SDL2
       - name: Setup Mingw64
