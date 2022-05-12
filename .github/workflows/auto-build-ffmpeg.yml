@@ -21,7 +21,7 @@ jobs:
           del /s/f/q \f \ffmpeg\
           git clone https://git.ffmpeg.org/ffmpeg.git \ffmpeg\
       - name: Build FFmpeg
-      - shell: msys2 {0}
+        shell: msys2 {0}
         run: |
           cd \ffmpeg\
           ./configure --enable-static --disable-shared --prefix=/usr/local/ffmpeg && make -j 4 && make install
