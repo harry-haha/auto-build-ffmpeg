@@ -27,3 +27,8 @@ jobs:
         run: |
           cd "ffmpeg"
           ./configure --enable-static --disable-shared --prefix=/usr/local/ffmpeg && make -j 4 && make install
+      - name: Zip
+        shell: cmd
+        run: |
+          copy lib\*.dll usr\local\ffmpeg\bin
+          7z a ffmpeg.zip usr\local\ffmpeg\*
