@@ -25,5 +25,5 @@ jobs:
       - name: Build FFmpeg
         shell: msys2 {0}
         run: |
-          cd "ffmprg"
+          cd "ffmpeg"
           ./configure --enable-static --disable-shared --prefix=/usr/local/ffmpeg && make -j 4 && make install
