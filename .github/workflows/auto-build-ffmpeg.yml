@@ -1,5 +1,4 @@
 name: Auto Build FFmpeg
-
 on:
   push:
     branches: 
@@ -7,20 +6,18 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-    
     steps:
       - uses: actions/checkout@v3
-      
       - name: Setup Msys2
         uses: msys2/setup-msys2@v2
         with:
           update: true
-          install: make pkgconf diffutils mingw-w64-x86_64-nasm mingw-w64-x86_64-gcc mingw-w64-x86_64-SDL2
+          install: make pkgconf diffutils git mingw-w64-x86_64-nasm mingw-w64-x86_64-gcc mingw-w64-x86_64-SDL2
       - name: Download FFmpeg Source Code
-        run: git clone https://git.ffmpeg.org/ffmpeg.git \ffmpeg\
+        shell: msys2 {0}
+        run: git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg\
       - name: Build FFmpeg
         shell: msys2 {0}
         run: |
-          cd \ffmpeg\
+          cd "ffmprg"
           ./configure --enable-static --disable-shared --prefix=/usr/local/ffmpeg && make -j 4 && make install
-        
