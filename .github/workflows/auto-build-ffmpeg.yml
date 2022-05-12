@@ -17,9 +17,7 @@ jobs:
           update: true
           install: make pkgconf diffutils mingw-w64-x86_64-nasm mingw-w64-x86_64-gcc mingw-w64-x86_64-SDL2
       - name: Download FFmpeg Source Code
-        run: |
-          del /s/f/q \ffmpeg\
-          git clone https://git.ffmpeg.org/ffmpeg.git \ffmpeg\
+        run: git clone https://git.ffmpeg.org/ffmpeg.git \ffmpeg\
       - name: Build FFmpeg
         shell: msys2 {0}
         run: |
