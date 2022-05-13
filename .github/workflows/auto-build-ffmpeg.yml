@@ -25,7 +25,7 @@ jobs:
           location: D:\
           msystem: mingw64
           install: git
-      - name: Setup tmate session
+      - name: Debug
         uses: mxschmitt/action-tmate@v3
         if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled }}
       - name: Download FFmpeg Source Code
@@ -37,7 +37,7 @@ jobs:
         shell: msys2 {0}
         run: |
           cd /d/msys64/ffmpeg
-          ./configure --enable-static --disable-shared --prefix=/usr/local/ffmpeg && make -j 5 && make install
+          ./configure --enable-static --disable-shared --prefix=/usr/local/ffmpeg && make -j 6 && make install
       - name: Zip
         shell: cmd
         run: |
@@ -45,7 +45,7 @@ jobs:
           7z a -tzip D:\ffmpeg.zip D:\msys64\usr\local\ffmpeg\*
       - name: Create a Tag
         id: tag
-        run: echo "::set-output name=tagname::FFmpeg-Auto-Build-On-$(date "+%Y/%m/%d %H-%M")"
+        run: echo "::set-output name=tagname::Auto-Build-FFmpeg-On-$(date "+%Y/%m/%d %H-%M")"
       - name: Release
         env:
           GITHUB_REPOSITORY: harry-haha/auto-build-ffmpeg
