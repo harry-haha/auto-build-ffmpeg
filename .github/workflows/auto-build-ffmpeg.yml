@@ -24,15 +24,12 @@ jobs:
       - name: Download FFmpeg Source Code
         shell: msys2 {0}
         run: |
-          D:
-          cd msys64\
+          cd /d/msys64/
           git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg\
       - name: Build FFmpeg
         shell: msys2 {0}
         run: |
-          D:
-          cd msys64\ffmpeg
-          cd "ffmpeg"
+          cd d/msys64/ffmpeg
           ./configure --enable-static --disable-shared --prefix=/usr/local/ffmpeg && make -j 4 && make install
       - name: Zip
         shell: cmd
