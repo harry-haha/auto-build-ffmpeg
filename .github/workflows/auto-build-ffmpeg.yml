@@ -40,7 +40,7 @@ jobs:
         shell: msys2 {0}
         run: |
           cd /d/msys64/ffmpeg
-          ./configure --enable-static --disable-shared --prefix=/usr/local/ffmpeg && make -j 6 && make install
+          ./configure --enable-static --disable-shared --prefix=/usr/local/ffmpeg && make -j 4 && make install
       - name: Zip
         shell: cmd
         run: |
