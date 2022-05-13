@@ -37,12 +37,12 @@ jobs:
         shell: msys2 {0}
         run: |
           cd /d/msys64/ffmpeg
-          ./configure --enable-static --disable-shared --prefix=/usr/local/ffmpeg && make -j 4 && make install
+          ./configure --enable-static --disable-shared --prefix=/usr/local/ffmpeg && make -j 5 && make install
       - name: Zip
         shell: cmd
         run: |
           copy D:\msys64\mingw64\bin\*.dll D:\msys64\usr\local\ffmpeg\bin
-          7z D:\ffmpeg.zip a -tzip D:\msys64\usr\local\ffmpeg\*
+          7z a -tzip D:\ffmpeg.zip D:\msys64\usr\local\ffmpeg\*
       - name: Create a Release
         uses: elgohr/Github-Release-Action@v4
         env:
