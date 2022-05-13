@@ -11,24 +11,31 @@ jobs:
       - name: Setup Msys2
         uses: msys2/setup-msys2@v2
         with:
+          location: D:\
           msystem: msys
           update: true
           install: make pkgconf diffutils mingw-w64-x86_64-nasm mingw-w64-x86_64-gcc mingw-w64-x86_64-SDL2
       - name: Setup Mingw64
         uses: msys2/setup-msys2@v2
         with:
+          location: D:\
           msystem: mingw64
           install: git
       - name: Download FFmpeg Source Code
         shell: msys2 {0}
-        run: git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg\
+        run: |
+          D:
+          cd msys64\
+          git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg\
       - name: Build FFmpeg
         shell: msys2 {0}
         run: |
+          D:
+          cd msys64\ffmpeg
           cd "ffmpeg"
           ./configure --enable-static --disable-shared --prefix=/usr/local/ffmpeg && make -j 4 && make install
       - name: Zip
         shell: cmd
         run: |
-          copy lib\*.dll usr\local\ffmpeg\bin
-          7z a ffmpeg.zip usr\local\ffmpeg\*
+          copy D:\msys64\mingw64\lib\*.dll D:\msys64\usr\local\ffmpeg\bin
+          7z -tzip D:\ffmpeg.zip D:\msys64\usr\local\ffmpeg\*
