@@ -1,11 +1,14 @@
 name: Auto Build FFmpeg
 on:
+  schedule:
+    - cron: "0 16 * * *"
   workflow_dispatch:
     inputs:
       debug_enabled:
         description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'     
         required: false
         default: false
+    
 jobs:
   build:
     runs-on: windows-latest
@@ -45,7 +48,7 @@ jobs:
           7z a -tzip D:\ffmpeg.zip D:\msys64\usr\local\ffmpeg\*
       - name: Create a Tag
         id: tag
-        run: echo "::set-output name=tagname::Auto-Build-FFmpeg-On-$(date "+%Y/%m/%d %H-%M")"
+        run: echo "::set-output name=tagname::Auto-Build-FFmpeg-On-$(date "+%Y/%m/%d_%H-%M")"
       - name: Release
         env:
           GITHUB_REPOSITORY: harry-haha/auto-build-ffmpeg
