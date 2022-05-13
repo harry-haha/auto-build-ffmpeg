@@ -1,8 +1,5 @@
 name: Auto Build FFmpeg
 on:
-  push:
-    branches: 
-        - main
   workflow_dispatch:
     inputs:
       debug_enabled:
@@ -15,9 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       # Enable tmate debugging of manually-triggered workflows if the input option was provided
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
-        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled }}
       - name: Setup Msys2
         uses: msys2/setup-msys2@v2
         with:
@@ -31,6 +25,9 @@ jobs:
           location: D:\
           msystem: mingw64
           install: git
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled }}
       - name: Download FFmpeg Source Code
         shell: msys2 {0}
         run: |
@@ -39,7 +36,7 @@ jobs:
       - name: Build FFmpeg
         shell: msys2 {0}
         run: |
-          cd d/msys64/ffmpeg
+          cd /d/msys64/ffmpeg
           ./configure --enable-static --disable-shared --prefix=/usr/local/ffmpeg && make -j 4 && make install
       - name: Zip
         shell: cmd
