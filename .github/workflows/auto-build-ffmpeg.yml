@@ -35,7 +35,7 @@ jobs:
         shell: msys2 {0}
         run: |
           cd /d/msys64/
-          git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg\
+          git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg/
       - name: Build FFmpeg
         shell: msys2 {0}
         run: |
