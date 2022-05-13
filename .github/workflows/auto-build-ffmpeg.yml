@@ -43,18 +43,14 @@ jobs:
         run: |
           copy D:\msys64\mingw64\bin\*.dll D:\msys64\usr\local\ffmpeg\bin
           7z a -tzip D:\ffmpeg.zip D:\msys64\usr\local\ffmpeg\*
-      - name: Create a Release
-        uses: elgohr/Github-Release-Action@v4
-        env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-        with:
-          title: Auto buiid
+      - name: Create a Tag
+        run: echo "::set-output name=tag_name::FFmpeg-Auto-Build-On-$(date "+%Y/%m/%d %H-%M")"
       - name: Release
         env:
           GITHUB_REPOSITORY: harry-haha/auto-build-ffmpeg
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          body: Auto build
+          body: Auto build FFmpeg
           token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
           files: D:\ffmpeg.zip
