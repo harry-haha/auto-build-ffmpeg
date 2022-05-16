@@ -1,1 +1,2 @@
-# auto-build-ffmpeg
+# Auto build FFmpeg
+Auto build FFmpeg
