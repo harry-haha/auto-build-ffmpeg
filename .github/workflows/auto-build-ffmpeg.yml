@@ -3,12 +3,6 @@ on:
   schedule:
     - cron: "0 16 * * *"
   workflow_dispatch:
-    inputs:
-      debug_enabled:
-        description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'     
-        required: false
-        default: false
-    
 jobs:
   build:
     runs-on: windows-latest
@@ -27,9 +21,6 @@ jobs:
           location: D:\
           msystem: mingw64
           install: git
-      - name: Debug
-        uses: mxschmitt/action-tmate@v3
-        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled }}
       - name: Download FFmpeg Source Code
         shell: msys2 {0}
         run: |
