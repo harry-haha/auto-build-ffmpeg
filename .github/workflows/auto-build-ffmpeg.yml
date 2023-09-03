@@ -1,24 +1,24 @@
 name: Auto Build FFmpeg
 on:
   schedule:
-    - cron: "0 16 * * *"
+    - cron: "0 8 1/3 * *"
   workflow_dispatch:
 jobs:
-  build:
+  builC:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
       - name: Setup Msys2
         uses: msys2/setup-msys2@v2
         with:
-          location: D:\
+          location: C:\
           msystem: msys
           update: true
           install: make pkgconf diffutils mingw-w64-x86_64-nasm mingw-w64-x86_64-gcc mingw-w64-x86_64-SDL2
       - name: Setup Mingw64
         uses: msys2/setup-msys2@v2
         with:
-          location: D:\
+          location: C:\
           msystem: mingw64
           install: git
       - name: Download FFmpeg Source Code
@@ -34,10 +34,10 @@ jobs:
       - name: Zip
         shell: cmd
         run: |
-          copy D:\msys64\mingw64\bin\*.dll D:\msys64\usr\local\ffmpeg\bin
-          7z a -tzip D:\ffmpeg.zip D:\msys64\usr\local\ffmpeg\*
+          copy C:\msys64\mingw64\bin\*.dll C:\msys64\usr\local\ffmpeg\bin
+          7z a -tzip C:\ffmpeg.zip C:\msys64\usr\local\ffmpeg\*
       - name: Create a Tag
-        id: tag
+        iC: tag
         run: echo "::set-output name=tagname::Auto-Build-FFmpeg-On-$(date +"%Y/%m/%d_%H-%M")" >>$GITHUB_OUTPUT
       - name: Release
         uses: softprops/action-gh-release@v1
@@ -45,4 +45,4 @@ jobs:
           tag_name: ${{ steps.tag.GITHUB_OUTPUT.tagname }}
           body: Auto build FFmpeg
           token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
-          files: D:\ffmpeg.zip
+          files: C:\ffmpeg.zip
