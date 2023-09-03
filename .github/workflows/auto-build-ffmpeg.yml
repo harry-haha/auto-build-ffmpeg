@@ -11,14 +11,14 @@ jobs:
       - name: Setup Msys2
         uses: msys2/setup-msys2@v2
         with:
-          location: C:\
+          location: D:\
           msystem: msys
           update: true
           install: make pkgconf diffutils mingw-w64-x86_64-nasm mingw-w64-x86_64-gcc mingw-w64-x86_64-SDL2
       - name: Setup Mingw64
         uses: msys2/setup-msys2@v2
         with:
-          location: C:\
+          location: D:\
           msystem: mingw64
           install: git
       - name: Download FFmpeg Source Code
@@ -34,8 +34,8 @@ jobs:
       - name: Zip
         shell: cmd
         run: |
-          copy C:\msys64\mingw64\bin\*.dll C:\msys64\usr\local\ffmpeg\bin
-          7z a -tzip C:\ffmpeg.zip C:\msys64\usr\local\ffmpeg\*
+          copy D:\msys64\mingw64\bin\*.dll D:\msys64\usr\local\ffmpeg\bin
+          7z a -tzip D:\ffmpeg.zip D:\msys64\usr\local\ffmpeg\*
       - name: Create a Tag
         id: tag
         run: echo "::set-output name=tagname::Auto-Build-FFmpeg-On-$(date +"%Y/%m/%d_%H-%M")" >>$GITHUB_OUTPUT
@@ -45,4 +45,4 @@ jobs:
           tag_name: ${{ steps.tag.GITHUB_OUTPUT.tagname }}
           body: Auto build FFmpeg
           token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
-          files: C:\ffmpeg.zip
+          files: D:\ffmpeg.zip
