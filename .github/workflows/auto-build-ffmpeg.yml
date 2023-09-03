@@ -38,11 +38,11 @@ jobs:
           7z a -tzip D:\ffmpeg.zip D:\msys64\usr\local\ffmpeg\*
       - name: Create a Tag
         id: tag
-        run: echo "::set-output name=tagname::Auto-Build-FFmpeg-On-$(date +"%Y/%m/%d_%H-%M")" >>$GITHUB_OUTPUT
+        run: echo "RELEASE_DATE=Auto-Build-FFmpeg-On-$(date +"%Y/%m/%d_%H-%M")" >> $GITHUB_OUTPUT
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ steps.tag.GITHUB_OUTPUT.tagname }}
+          tag_name: ${{ steps.tag.outputs.tagname.RELEASE_DATE }}
           body: Auto build FFmpeg
           token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
           files: D:\ffmpeg.zip
